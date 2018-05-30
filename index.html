@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tasca 12 - Afegir i eliminar alumnes a una taula amb AngularJS</title>
+	<!-- Llibreries de bootstrap afegides directament d'internet -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body style="background-color:silver" ng-controller="myCtrl">
+	
+	<div class="container">
+		<div class="jumbotron">
+			<form ng-submit="coinConverter()">
+				<div class="form-row">
+					<div class="form-group col-md-4 offset-md-1">
+						<label for="quantitat">Quantitat:</label>
+						<input	type="number" 
+						class="form-control mb-2 mr-sm-2" 
+						id="quantitat" 
+						placeholder="Introdueix la quantitat a convertir" 
+						min="0"
+						ng-model="consulta.quantitat" 
+						required>
+					</div>
+					
+					<div class="form-group col-md-3">
+						<label for="tipus">Tipus de moneda:</label>
+						<div class="input-group mb-2 mr-sm-2">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">€</div>
+								</div>
+								<select	class="custom-select mr-sm-2" 
+								id="inlineFormCustomSelect" 
+								ng-model="consulta.tipus"
+								required>
+								<option value="" selected>Tria una...</option>
+								<option ng-repeat="tip in monedes" value={{tip.symbol}} >{{tip.symbol}} - {{tip.name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group col-md-3">
+					<label for="tipus">&nbsp</label>
+					<div>
+						<button type="submit" class="btn btn-success btn-block">Conversió</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="js/controller.js"></script>
+</body>
+</html>
