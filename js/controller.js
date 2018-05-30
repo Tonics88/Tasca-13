@@ -26,7 +26,14 @@ app.controller("myCtrl", function myCtrl($scope, $http){
         console.log($scope.monedes);
         
         
-        $http.get("https://api.coinmarketcap.com/v2/ticker/?convert=EUR")
+        
+        
+    });
+    
+    $scope.coinConverter = function () {
+        console.log($scope.consulta);
+        
+        $http.get("https://api.coinmarketcap.com/v2/ticker/?convert="+$scope.consulta.tipus)
         .then(function(response){
             console.log(response.data.data);
             for (data in response.data.data){
@@ -35,27 +42,39 @@ app.controller("myCtrl", function myCtrl($scope, $http){
                     
                     if ($scope.monedes[moneda].id == data){
                         $scope.monedes[moneda] = response.data.data[data];
+                        if ($scope.monedes[moneda].symbol != $scope.consulta.tipus){
+                            console.log();
+                            console.log($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/$scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.consulta.tipus);
+                            
+                        }
                     }
                 }
             }
-            console.log($scope.monedes);
+            // console.log($scope.monedes);
+            // for (moneda in $scope.monedes){
+            //     if ($scope.monedes[moneda].symbol != "EUR" || $scope.monedes[moneda].symbol != $scope.consulta.tipus){
+            //         console.log();
+            //         console.log($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/$scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.consulta.tipus);
+                    
+            //     }
+            // }
         });
         
-    });
-    
-    $scope.coinConverter = function () {
-        console.log($scope.consulta);
-        for (moneda in $scope.monedes){
-            if (moneda != $scope.consulta.tipus){
-                if (moneda == "EUR") {
-                    console.log($scope.monedes[$scope.consulta.tipus].name+" - "+$scope.monedes[$scope.consulta.tipus].quotes.EUR.price*$scope.consulta.quantitat);
-                } else {
-                    console.log($scope.monedes[moneda].name+" - "+$scope.monedes[moneda].quotes.EUR.price*$scope.consulta.quantitat);
-                }
-                
-            }
-        }
-
+        // for (moneda in $scope.monedes){
+        //     console.log($scope.monedes[moneda].symbol);
+        //     if ($scope.monedes[moneda].symbol != "EUR" && $scope.monedes[moneda].symbol != $scope.consulta.tipus){
+        //         $http.get("https://api.coinmarketcap.com/v2/ticker/"+$scope.monedes[moneda].id+"/?convert="+$scope.consulta.tipus)
+        //         .then(function(response){
+        //             //console.log(response.data.data);
+        //             //console.log($scope.monedes[moneda].quotes);
+        //             $scope.monedes[moneda] = response.data.data;
+        //             console.log($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/ $scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.consulta.tipus);
+        //         });
+        //     }
+        // }
+        // console.log($scope.monedes);
+        
+        
     }
     
     
