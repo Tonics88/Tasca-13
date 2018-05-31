@@ -12,6 +12,7 @@
 	<div class="container">
 		<div class="jumbotron">
 			<br>
+			<!-- Formulari -->
 			<form ng-submit="coinConverter()">
 				<div class="form-row">
 					<div class="form-group col-md-4 offset-md-1">
@@ -27,6 +28,7 @@
 					<div class="form-group col-md-6">
 						<div class="input-group">
 							<div class="input-group-prepend">
+								<!-- En funció de la moneda triada mostrarem el seu simbol -->
 								<div class="input-group-text" ng-switch on="consulta.tipus">
 									<div ng-switch-when="EUR">{{monedes["EUR"].symbol}}</div>
 									<div ng-switch-when="BTC">{{monedes["BTC"].symbol}}</div>
@@ -41,6 +43,7 @@
 							ng-model="consulta.tipus"
 							required>
 							<option value="" selected ng-selected="consulta">Tipus de moneda:</option>
+							<!-- Construcció del select en funció de les monedes amb les que volem. -->
 							<option ng-repeat="moneda in monedes" value={{moneda.symbol}}>{{moneda.name}}</option>
 							</select>
 							<div class="input-group-append">
@@ -50,14 +53,12 @@
 					</div>
 				
 				</div>
-			
-			
-			
 			</form>
 		</div>
-	
+		
+		<!-- Aquí mostram la resposta generada -->
 		<ul class="col-md-6 offset-md-3 list-group">
-			<li class="list-group-item list-group-item-success" ng-repeat="result in resultat">{{result}}</li>
+			<li class="list-group-item list-group-item-success font-weight-bold" ng-repeat="result in resultat track by $index">{{result}}</li>
 		</ul>
 
 		<div class="footer">
