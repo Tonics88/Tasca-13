@@ -1,8 +1,8 @@
 .jumbotron {
     padding: 15px;
     margin: 15px;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .list-group {
