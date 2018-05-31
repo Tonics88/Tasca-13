@@ -11,49 +11,60 @@
 	
 	<div class="container">
 		<div class="jumbotron">
+			<br>
 			<form ng-submit="coinConverter()">
 				<div class="form-row">
 					<div class="form-group col-md-4 offset-md-1">
-						<label for="quantitat">Quantitat:</label>
 						<input	type="number" 
 						class="form-control mb-2 mr-sm-2" 
 						id="quantitat" 
-						placeholder="Introdueix la quantitat a convertir" 
+						placeholder="Quantitat a convertir:" 
 						min="0"
 						ng-model="consulta.quantitat" 
 						required>
 					</div>
 					
-					<div class="form-group col-md-3">
-						<label for="tipus">Tipus de moneda:</label>
-						<div class="input-group mb-2 mr-sm-2">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<div class="input-group-text">€</div>
+					<div class="form-group col-md-6">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text" ng-switch on="consulta.tipus">
+									<div ng-switch-when="EUR">{{monedes["EUR"].symbol}}</div>
+									<div ng-switch-when="BTC">{{monedes["BTC"].symbol}}</div>
+									<div ng-switch-when="ETH">{{monedes["ETH"].symbol}}</div>
+									<div ng-switch-when="BCH">{{monedes["BCH"].symbol}}</div>
+									<div ng-switch-when="LTC">{{monedes["LTC"].symbol}}</div>
+									<div ng-switch-default>$$$</div>
 								</div>
-								<select	class="custom-select mr-sm-2" 
-								id="inlineFormCustomSelect" 
-								ng-model="consulta.tipus"
-								required>
-								<option value="" selected>Tria una...</option>
-								<option ng-repeat="tip in monedes" value={{tip.symbol}} >{{tip.symbol}} - {{tip.name}}</option>
+							</div>
+							<select class="custom-select" 
+							id="tipus"
+							ng-model="consulta.tipus"
+							required>
+							<option value="" selected ng-selected="consulta">Tipus de moneda:</option>
+							<option ng-repeat="moneda in monedes" value={{moneda.symbol}}>{{moneda.name}}</option>
 							</select>
+							<div class="input-group-append">
+								<button type="submit" class="btn btn-success btn-block">Conversió</button>
+							</div>
 						</div>
 					</div>
-				</div>
 				
-				<div class="form-group col-md-3">
-					<label for="tipus">&nbsp</label>
-					<div>
-						<button type="submit" class="btn btn-success btn-block">Conversió</button>
-					</div>
 				</div>
-			</div>
+			
+			
+			
+			</form>
 		</div>
-	</form>
-</div>
+	
+		<ul class="col-md-6 offset-md-3 list-group">
+			<li class="list-group-item list-group-item-success" ng-repeat="result in resultat">{{result}}</li>
+		</ul>
 
-</div>
+		<div class="footer">
+			<!-- Pagina web creada per en Toni Caballero Salas -->
+			<small class="text-muted">&nbsp&copy&nbspToni Caballero Salas</small>
+		</div>
+	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="js/controller.js"></script>
 </body>

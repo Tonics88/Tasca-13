@@ -1,6 +1,10 @@
 var app = angular.module("myApp",[]);
 app.controller("myCtrl", function myCtrl($scope, $http){
-    $scope.consulta;
+    $scope.simbol = "$";
+    $scope.consulta = {
+        tipus: "",
+        quantitat: ""
+    };
     $scope.monedes = {
         "EUR":{
             name: "Euro", 
@@ -31,6 +35,7 @@ app.controller("myCtrl", function myCtrl($scope, $http){
     });
     
     $scope.coinConverter = function () {
+        $scope.resultat = [];
         console.log($scope.consulta);
         
         $http.get("https://api.coinmarketcap.com/v2/ticker/?convert="+$scope.consulta.tipus)
@@ -44,8 +49,9 @@ app.controller("myCtrl", function myCtrl($scope, $http){
                         $scope.monedes[moneda] = response.data.data[data];
                         if ($scope.monedes[moneda].symbol != $scope.consulta.tipus){
                             console.log();
-                            console.log($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/$scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.consulta.tipus);
-                            
+                            console.log($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/$scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.monedes[moneda].symbol);
+                            $scope.resultat.push($scope.monedes[moneda].name+" - "+$scope.consulta.quantitat/$scope.monedes[moneda].quotes[$scope.consulta.tipus].price+" "+$scope.monedes[moneda].symbol);
+
                         }
                     }
                 }
